@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">RegistroDeBajas</string>
+    <string name="action_settings">Settings</string>
+    <string name="etiqueta_nombre">Nombre :</string>
+    <string name="etiqueta_correo">Correo :</string>
+    <string name="etiqueta_password">Contraseña :</string>
+    <string name="etiqueta_matricula">Matricula :</string>
+    <string name="boton_registrar">Registrarme</string>
+    <string name="title_activity_login">Login</string>
+    <string name="boton_inicio_sesion">Iniciar Sesion</string>
+    <string name="title_activity_registro">Registro</string>
+
+
+    <string-array name="carreras">
+        <item>Escoge Tu Carrera:</item>
+        <item>Sistemas</item>
+        <item>Electronica</item>
+        <item>Electrica</item>
+        <item>Quimica</item>
+        <item>Bioquimica</item>
+        <item>Industrial</item>
+        <item>Mecatronica</item>
+        <item>Mecanica</item>
+        <item>Administracion</item>
+    </string-array>
+
+
+</resources>
