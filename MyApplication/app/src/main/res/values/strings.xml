@@ -9,6 +9,8 @@
     <string name="title_activity_login">Login</string>
     <string name="boton_inicio_sesion">Iniciar Sesion</string>
     <string name="title_activity_registro">Registro</string>
+    <string name="title_activity_main">Bienvenido</string>
+    <string name="regresar">Regresar</string>
 
 
     <string-array name="carreras">

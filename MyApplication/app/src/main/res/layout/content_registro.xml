@@ -80,6 +80,13 @@
             android:layout_height="wrap_content"
             android:text="@string/boton_registrar"
             android:id="@+id/buttonRegistro" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonRegresarRegistro"
+            android:text="@string/regresar" />
     </LinearLayout>
 
 </RelativeLayout>
