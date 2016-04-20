@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
@@ -25,21 +26,31 @@ import java.util.Map;
 public class Registro extends AppCompatActivity {
 
 
-    int duracionMensaje=Toast.LENGTH_SHORT;
 
+
+    //Declaramos un mensaje tipo Toast
+     Toast mensaje;
+    //Duracion del mensaje que se muestra en caso de error
+    int duracionMensaje = Toast.LENGTH_SHORT;
+
+    //Referencias a las vistas
+    Button registrarme;
+    Button regresar;
     EditText nombre;
     EditText correo;
     EditText password;
     EditText matricula;
-    String carrera;
+    Spinner spinner;    //Combobox
+    int pocision;       //Indice del combobox
+    String carrera;     //Etiqueta del combobox
+
+    //Objeto json para mandarlo a la db
     Map<String, Object> datosAlumno;
 
-    Firebase ref;
-    Spinner spinner;
-    int pocision;
+
 
     // Create an ArrayAdapter using the string array and a default spinner layout
-    ArrayAdapter<CharSequence> adapter ;
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,127 +58,165 @@ public class Registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Firebase.setAndroidContext(this);
+        Firebase.setAndroidContext(this);       //Firebase necesita esto :v
+
+        //Referecia a la base de datos
+       final Firebase ref = new Firebase("https://blinding-inferno-2140.firebaseio.com");
+
+        //Obtenemos el combobox por su id y le asignamos el adapter
         spinner = (Spinner) findViewById(R.id.spinnerCarreras);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.carreras, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(this,R.array.carreras, android.R.layout.simple_spinner_item);
+
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        nombre=(EditText)findViewById(R.id.editTextNombre);
-        correo=(EditText)findViewById(R.id.editTextCorreo);
-        password=(EditText)findViewById(R.id.editTextPassword);
-        matricula=(EditText) findViewById(R.id.editTextMatricula);
+        //Obtenemos la referencia del boton "Registrarme" mediante el metodo que lo busca por su ID
+        registrarme = (Button) findViewById(R.id.buttonRegistro);
+        regresar = (Button) findViewById(R.id.buttonRegresarRegistro);
+
+        //Obtenemos la referencia de las demas vistas
+        nombre = (EditText) findViewById(R.id.editTextNombre);
+        correo = (EditText) findViewById(R.id.editTextCorreo);
+        password = (EditText) findViewById(R.id.editTextPassword);
+        matricula = (EditText) findViewById(R.id.editTextMatricula);
+
+        //inicializamos el Json
         datosAlumno = new HashMap<String, Object>();
 
-        //Obtenemos la referencia del boton "Registrarme" mediante el metodo que lo busca por su ID
-        final Button registrarme = (Button) findViewById(R.id.buttonRegistro);
-        final Button regresar=(Button) findViewById(R.id.buttonRegresarRegistro);
-
+        //Le asignamos un oyente al boton regresar
         regresar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               finish();
-
+            public void onClick(View v) {           //si se presiona cerramos la actividad
+                finish();
             }
         });
 
+        ref.addAuthStateListener(new Firebase.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(AuthData authData) {
+                if (authData != null) {
+                    ref.child("users").child(authData.getUid()).setValue(datosAlumno);
+                    System.out.println("Dato agregado");
+                    ref.unauth();
+                } else {
+                    System.out.println("Dato no agregado");
+                }
+            }
+        });
+
+        //Le agregamos un oyente al combobox
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                carrera=(String)parent.getItemAtPosition(position);
-                pocision=position;
-                Log.v("TAG",pocision+"");
-
+                //Si se selecciona algo , obtenemos el indice de la seleccion y la etiqueta
+                carrera = (String) parent.getItemAtPosition(position);
+                pocision = position;
+                //Log.v("TAG", pocision + "");
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                    //si no se selecciona nada lo dejamos en 0
+                    pocision=0;
             }
         });
 
+        //Le asignamos un oyente al boton registrarme
         registrarme.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {       //Si lo presionan
+                //Desactivamos el boton registrar para que no lo vuelvan a presionar mientras se da respuesta
                 registrarme.setEnabled(false);
-                Toast mensaje;
 
-                if(nombre.getText().toString().equals("")){
 
-                    mensaje=Toast.makeText(Registro.this,"Debes ingresar tu nombre",duracionMensaje);
+                //Validamos que los campos no esten vacios
+                if (nombre.getText().toString().equals("")) {
+
+                    mensaje = Toast.makeText(Registro.this, "Debes ingresar tu nombre", duracionMensaje);
                     mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     mensaje.getView().setBackgroundColor(Color.BLUE);
                     mensaje.show();
                     registrarme.setEnabled(true);
 
-                }else if(password.getText().toString().equals("")){
+                } else if (password.getText().toString().equals("")) {
 
-                    mensaje=Toast.makeText(Registro.this,"Debes ingresar una contraseña",duracionMensaje);
+                    mensaje = Toast.makeText(Registro.this, "Debes ingresar una contraseña", duracionMensaje);
                     mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     mensaje.getView().setBackgroundColor(Color.BLUE);
                     mensaje.show();
                     registrarme.setEnabled(true);
-                }else if(correo.getText().toString().equals("")){
+                } else if (correo.getText().toString().equals("")) {
 
-                    mensaje=Toast.makeText(Registro.this,"Debes ingresar un correo válido",duracionMensaje);
+                    mensaje = Toast.makeText(Registro.this, "Debes ingresar un correo válido", duracionMensaje);
                     mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     mensaje.getView().setBackgroundColor(Color.BLUE);
                     mensaje.show();
                     registrarme.setEnabled(true);
-                }else if(matricula.getText().toString().equals("")){
 
-                    mensaje=Toast.makeText(Registro.this,"Debes ingresar tu matricula",duracionMensaje);
+                } else if (matricula.getText().toString().equals("")) {
+
+                    mensaje = Toast.makeText(Registro.this, "Debes ingresar tu matricula", duracionMensaje);
                     mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     mensaje.getView().setBackgroundColor(Color.BLUE);
                     mensaje.show();
                     registrarme.setEnabled(true);
-                }else if (pocision!=0) {
 
+                } else if (pocision != 0) {  //si si eligio una carrera
+
+                    //Guardamos los datos en el Json
                     datosAlumno.put("Nombre", nombre.getText().toString());
-                    datosAlumno.put("Password", password.getText().toString());
-                    datosAlumno.put("Correo", correo.getText().toString());
+                    datosAlumno.put("Matricula",matricula.getText().toString());
+                    datosAlumno.put("Carrera", carrera);
 
+                    //Creamos el usuario con su correo y contraseña y le agregamos un oyente de callback
+                    ref.createUser(correo.getText().toString(), password.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
 
-                    ref = new Firebase("https://blinding-inferno-2140.firebaseio.com/Alumnos/Carreras/" + carrera + "/" + matricula.getText().toString());
-                    //agregamos la información y ponemos un oyente que se fije si la información fue guardada en la base de datos
-                    ref.updateChildren(datosAlumno, new Firebase.CompletionListener() {
                         @Override
-                        public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                                Toast mensaje;
-                            if (firebaseError != null) {
-                                System.out.println("Data could not be saved. " + firebaseError.getMessage());
-                                mensaje=Toast.makeText(Registro.this,"Hubo un error intente despues",duracionMensaje);
-                                mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                mensaje.getView().setBackgroundColor(Color.BLUE);
-                                mensaje.show();
-                                registrarme.setEnabled(true);
-                            } else {
+                        public void onSuccess(Map<String, Object> result) { //si la insercion fue exitosa
 
-                                System.out.println("Data saved successfully.");
-                                mensaje=Toast.makeText(Registro.this,"Registro Exitoso!",duracionMensaje);
-                                mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                mensaje.getView().setBackgroundColor(Color.argb(54, 23, 32, 12));
-                                mensaje.show();
-                                //Iniciamos un intent que va a llamar a la actividad "Registro"
-                                Intent intent = new Intent(Registro.this, MainActivity.class);
-                                //llamamos a la actividad
-                                startActivity(intent);
-                            }
+                            //nos autenticamos para meter los datos del JSON a través del oyente de ref
+                            ref.authWithPassword(correo.getText().toString(), password.getText().toString(), new Firebase.AuthResultHandler() {
+                                @Override
+                                public void onAuthenticated(AuthData authData) {
+                                    //MANDAMOS A PAGINA PRINCIPAL
+                                    mensaje = Toast.makeText(Registro.this, "Registro Exitoso", duracionMensaje);
+                                    mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                    mensaje.getView().setBackgroundColor(Color.WHITE);
+                                    mensaje.show();
 
 
+                                    //Iniciamos un intent que va a llamar a la actividad "Registro"
+                                    Intent intent = new Intent(Registro.this, home.class);
+                                    intent.putExtra("usuario",authData.getUid());
+                                    //llamamos a la actividad
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onAuthenticationError(FirebaseError firebaseError) {
+                                        //MADAMOS A INICIAR SESION
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onError(FirebaseError firebaseError) {
+                            // si el usuario no pudo ser creado, debemos hacer un switch que
+                            //deacuerdo a los codigos de error nos muestre un mensaje toast que le diga
+                            //al usuario cual fue el motivo del no registro
+
+                            System.out.println("Error" + firebaseError.getMessage());
+                            System.out.println("Error"+firebaseError.getDetails());
                         }
                     });
 
+                } else {    //si no , debe escojer una materia
 
-
-                }else{
-
-                    mensaje=Toast.makeText(Registro.this,"Debes seleccionar una carrrea",duracionMensaje);
-                    mensaje.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    mensaje = Toast.makeText(Registro.this, "Debes seleccionar una carrrea", duracionMensaje);
+                    mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     mensaje.getView().setBackgroundColor(Color.WHITE);
                     mensaje.show();
                 }
