@@ -1,5 +1,6 @@
 package com.example.luis.solicitudveranos;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,11 +18,13 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import clases.Materia;
 import clases.ProveedorInformacion;
+import clases.SemestresAdapter;
 
 public class home extends AppCompatActivity {
 
@@ -30,10 +33,11 @@ public class home extends AppCompatActivity {
 
 
     HashMap<String,List<Materia>> materias;
-    List<String> Semestres;
+    List<String> semestres;
     ExpandableListView exp;
 
-
+    SemestresAdapter adapter;
+    Context c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);       //Firebase necesita esto :v
+
+        c = this;
 
         String user = getIntent().getExtras().getString("usuario");
         usuario = (TextView) findViewById(R.id.textViewUsuarioHome);
@@ -54,14 +60,20 @@ public class home extends AppCompatActivity {
 
                 usuario.setText("Bievenido " + snapshot.child("Nombre").getValue());
                 carrera.setText("Estas viendo las materias de " + snapshot.child("Carrera").getValue());
-                ProveedorInformacion.obtenerInfo((String)snapshot.child("Carrera").getValue());
+                materias = ProveedorInformacion.obtenerInfo((String) snapshot.child("Carrera").getValue());
+                System.out.println("Obtuvo informacion");
+                semestres = new ArrayList<String>(materias.keySet());
+                exp = (ExpandableListView) findViewById(R.id.expListMaterias);
+                adapter = new SemestresAdapter(home.this, materias, semestres);
+                System.out.println("Sin adapter");
+                exp.setAdapter(adapter);
+                System.out.println("Con adapter");
             }
 
             @Override
             public void onCancelled(FirebaseError error) {
             }
         });
-
 
 
     }

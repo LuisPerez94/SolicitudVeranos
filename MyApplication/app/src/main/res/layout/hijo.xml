@@ -10,5 +10,6 @@
         android:layout_height="fill_parent"
         android:paddingLeft="?android:attr/expandableListPreferredChildIndicatorLeft"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        android:textColor="#666666"/> 
 </LinearLayout>
