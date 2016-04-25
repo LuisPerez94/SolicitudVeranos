@@ -25,7 +25,7 @@
         <item>Mecanica</item>
         <item>Administracion</item>
     </string-array>
-    <string name="title_activity_home">home</string>
+    <string name="title_activity_home">Seleccion de Veranos Itver</string>
 
 
 </resources>

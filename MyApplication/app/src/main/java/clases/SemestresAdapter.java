@@ -1,13 +1,16 @@
 package clases;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.luis.solicitudveranos.R;
 
@@ -35,7 +38,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int arg0) {
-        return materias.get(arg0).size();
+        return materias.get((arg0+1)+"Semestre").size();
 
     }
 
@@ -46,7 +49,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int padre, int hijo) {
-        return materias.get(semestres.get(padre)).get(hijo).materia;
+        return materias.get((padre+1)+"Semestre").get(hijo).getMateria()+"\n"+materias.get((padre+1)+"Semestre").get(hijo).getNombre();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int padre, boolean estaExpandido, View convertView, ViewGroup padreview) {
         String nombreGrupo = (String) getGroup(padre);
-
+        System.out.println(nombreGrupo);
             LayoutInflater inflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.padre, padreview, false);
 
@@ -87,13 +90,22 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflator.inflate(R.layout.hijo,padreview,false);
 
-        TextView hijoTextView=(TextView)convertView.findViewById(R.id.hijo_txt);
+        final TextView hijoTextView=(TextView)convertView.findViewById(R.id.hijo_txt);
         hijoTextView.setText(nombreHijo);
+
+        Button button = (Button)convertView.findViewById(R.id.buttonChild);
+        button.setText("Elegir!");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ctx, "Has elegido esta materia", 5000).show();
+                hijoTextView.setBackgroundColor(Color.CYAN);
+            }});
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

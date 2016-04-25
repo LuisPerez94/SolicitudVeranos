@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAuthenticated(AuthData authData) {
                         //Iniciamos un intent que va a llamar a la actividad "Registro"
+                        String []datos={correo.getText().toString(),pass.getText().toString()};
                         Intent intent = new Intent(MainActivity.this, home.class);
-                        intent.putExtra("usuario",authData.getUid());
+                        intent.putExtra("usuario",datos);
+                        ref.unauth();
                         //llamamos a la actividad
                         startActivity(intent);
                     }

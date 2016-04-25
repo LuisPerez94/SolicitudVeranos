@@ -41,7 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/expListMaterias"
+        android:indicatorLeft="250dp"
+        android:indicatorRight="300dp"
+        android:layout_below="@+id/textViewCarreraHome"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="66dp" />
 
 </RelativeLayout>
