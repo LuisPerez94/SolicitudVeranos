@@ -159,7 +159,7 @@ public class Registro extends AppCompatActivity {
 
                     mensaje = Toast.makeText(Registro.this, "Debes ingresar tu matricula", duracionMensaje);
                     mensaje.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    mensaje.getView().setBackgroundColor(Color.BLUE);
+                   mensaje.getView().setBackgroundColor(Color.BLUE);
                     mensaje.show();
                     registrarme.setEnabled(true);
 
@@ -188,8 +188,10 @@ public class Registro extends AppCompatActivity {
 
 
                                     //Iniciamos un intent que va a llamar a la actividad "Registro"
+                                    String []datos={correo.getText().toString(),password.getText().toString()};
                                     Intent intent = new Intent(Registro.this, home.class);
-                                    intent.putExtra("usuario",authData.getUid());
+                                    intent.putExtra("usuario", datos);
+                                    ref.unauth();
                                     //llamamos a la actividad
                                     startActivity(intent);
                                 }

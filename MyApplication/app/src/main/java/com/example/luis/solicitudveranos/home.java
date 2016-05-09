@@ -62,7 +62,9 @@ public class home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);       //Firebase necesita esto :v
-        datos = (String[]) getIntent().getExtras().get("usuario");
+        //datos = (String[])getIntent().getExtras().get("usuario");
+        Bundle extras=getIntent().getExtras();
+        datos=extras.getStringArray("usuario");
         sesion = new Firebase("https://blinding-inferno-2140.firebaseio.com");
         lista=(ExpandableListView) findViewById(R.id.expListMaterias);
         txtNombre=(TextView) findViewById(R.id.textViewUsuarioHome);
@@ -92,7 +94,12 @@ public class home extends AppCompatActivity {
     }
 
     public void generarLista(){
-        adapter= new SemestresAdapter(this,materias,new ArrayList<String>(materias.keySet()));
+        ArrayList <String> semestres=new ArrayList<String>(materias.keySet());
+        adapter= new SemestresAdapter(this,materias,semestres,id);
+
+        for (int i = 0; i < semestres.size() ; i++) {
+            System.out.println(semestres.get(i));
+        }
         lista.setAdapter(adapter);
     }
     void leerDatosMaterias() {
@@ -102,7 +109,7 @@ public class home extends AppCompatActivity {
             new CountDownTimer(1000, 1000) {
                 public void onFinish() {
                     materias=ProveedorInformacion.obtenerInfo();
-                    System.out.println(materias.keySet().size());
+                    //System.out.println(materias.keySet().size());
                     generarLista();
                 }
 
@@ -128,8 +135,8 @@ public class home extends AppCompatActivity {
 
                 System.out.println(dataSnapshot.child("Carrera").getValue());
                 carrera = (String) dataSnapshot.child("Carrera").getValue();
-                txtNombre.setText("Bienvenido "+dataSnapshot.child("Nombre").getValue()+" #control"+ dataSnapshot.child("Matricula").getValue());
-                txtCarrera.setText("Estas Viendo la reticula de "+ dataSnapshot.child("Carrera").getValue());
+                txtNombre.setText("Bienvenido  "+dataSnapshot.child("Nombre").getValue()+"    #control:  "+ dataSnapshot.child("Matricula").getValue());
+                txtCarrera.setText("Estas viendo la reticula de "+ dataSnapshot.child("Carrera").getValue());
                 leerDatosMaterias();
             }
 
