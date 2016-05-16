@@ -11,6 +11,7 @@
     <string name="title_activity_registro">Registro</string>
     <string name="title_activity_main">Bienvenido</string>
     <string name="regresar">Regresar</string>
+    <string name="cerrar">Cerrar Sesion</string>
 
 
     <string-array name="carreras">

@@ -11,6 +11,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -49,6 +52,7 @@ public class home extends AppCompatActivity {
     static HashMap<String, List<Materia>> materias;
     static ExpandableListView lista;
     static SemestresAdapter adapter;
+    static HashMap<String,String> materiasAlumno;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -95,7 +99,7 @@ public class home extends AppCompatActivity {
 
     public void generarLista(){
         ArrayList <String> semestres=new ArrayList<String>(materias.keySet());
-        adapter= new SemestresAdapter(this,materias,semestres,id);
+        adapter= new SemestresAdapter(this,materias,semestres,id,materiasAlumno);
 
         for (int i = 0; i < semestres.size() ; i++) {
             System.out.println(semestres.get(i));
@@ -133,10 +137,11 @@ public class home extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                System.out.println(dataSnapshot.child("Carrera").getValue());
+                //System.out.println(dataSnapshot.child("Carrera").getValue());
                 carrera = (String) dataSnapshot.child("Carrera").getValue();
-                txtNombre.setText("Bienvenido  "+dataSnapshot.child("Nombre").getValue()+"    #control:  "+ dataSnapshot.child("Matricula").getValue());
-                txtCarrera.setText("Estas viendo la reticula de "+ dataSnapshot.child("Carrera").getValue());
+                materiasAlumno = (HashMap) dataSnapshot.child("Materias").getValue();
+                txtNombre.setText("Bienvenido  " + dataSnapshot.child("Nombre").getValue() + "    #control:  " + dataSnapshot.child("Matricula").getValue());
+                txtCarrera.setText("Estas viendo la reticula de " + dataSnapshot.child("Carrera").getValue());
                 leerDatosMaterias();
             }
 
@@ -186,4 +191,6 @@ public class home extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+  
 }

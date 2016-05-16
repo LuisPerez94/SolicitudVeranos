@@ -20,7 +20,9 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Registro extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class Registro extends AppCompatActivity {
     //Objeto json para mandarlo a la db
     Map<String, Object> datosAlumno;
 
+    Map <String,String> materias;
 
 
     // Create an ArrayAdapter using the string array and a default spinner layout
@@ -54,17 +57,18 @@ public class Registro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);       //Firebase necesita esto :v
 
-        //Referecia a la base de datos
-       final Firebase ref = new Firebase("https://blinding-inferno-2140.firebaseio.com");
+         //Referecia a la base de datos
+        final Firebase ref = new Firebase("https://blinding-inferno-2140.firebaseio.com");
 
         //Obtenemos el combobox por su id y le asignamos el adapter
-        spinner = (Spinner) findViewById(R.id.spinnerCarreras);
+         spinner = (Spinner) findViewById(R.id.spinnerCarreras);
         adapter = ArrayAdapter.createFromResource(this,R.array.carreras, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
@@ -97,9 +101,7 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(AuthData authData) {
                 if (authData != null) {
-                    ref.child("users").child(authData.getUid()).setValue(datosAlumno);
-                    System.out.println("Dato agregado");
-                    ref.unauth();
+
                 } else {
                     System.out.println("Dato no agregado");
                 }
@@ -169,6 +171,10 @@ public class Registro extends AppCompatActivity {
                     datosAlumno.put("Nombre", nombre.getText().toString());
                     datosAlumno.put("Matricula",matricula.getText().toString());
                     datosAlumno.put("Carrera", carrera);
+                    materias=new HashMap<String, String>();
+                    materias.put("Materia1","Vacio");
+                    materias.put("Materia2","Vacio");
+                    datosAlumno.put("Materias",materias);
 
                     //Creamos el usuario con su correo y contraseña y le agregamos un oyente de callback
                     ref.createUser(correo.getText().toString(), password.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
@@ -186,12 +192,12 @@ public class Registro extends AppCompatActivity {
                                     mensaje.getView().setBackgroundColor(Color.WHITE);
                                     mensaje.show();
 
-
+                                    ref.child("users").child(authData.getUid()).setValue(datosAlumno);
+                                    System.out.println("Dato agregado");
                                     //Iniciamos un intent que va a llamar a la actividad "Registro"
                                     String []datos={correo.getText().toString(),password.getText().toString()};
                                     Intent intent = new Intent(Registro.this, home.class);
                                     intent.putExtra("usuario", datos);
-                                    ref.unauth();
                                     //llamamos a la actividad
                                     startActivity(intent);
                                 }

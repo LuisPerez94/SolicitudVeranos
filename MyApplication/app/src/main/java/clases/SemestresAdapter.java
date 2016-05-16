@@ -29,12 +29,14 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
     private HashMap<String,String> elecciones;
     private String id;
     private Firebase mate;
-    public SemestresAdapter(Context ctx, HashMap<String, List<Materia>> materias, List<String> semestres,String id) {
+    private HashMap materiasAlumno;
+    public SemestresAdapter(Context ctx, HashMap<String, List<Materia>> materias, List<String> semestres,String id,HashMap materiasAlumno) {
         this.ctx = ctx;
         this.materias = materias;
         this.semestres = semestres;
         elecciones=new HashMap<>();
         this.id= id;
+        this.materiasAlumno=materiasAlumno;
         mate=new Firebase("https://blinding-inferno-2140.firebaseio.com/users/"+id);
     }
 
@@ -100,39 +102,76 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
         final TextView hijoTextView=(TextView)convertView.findViewById(R.id.hijo_txt);
         hijoTextView.setText(nombreHijo);
-        if (elecciones.containsKey(getGroup(padre)+""+getChildId(padre, hijo))){
-            hijoTextView.setBackgroundColor(Color.CYAN);
+        System.out.println("materia1 "+materiasAlumno.get("Materia1")+ " Materia 2 "+materiasAlumno.get("Materia2"));
+        if((materiasAlumno.get("Materia1").equals("Vacio")) && (materiasAlumno.get("Materia2").equals("Vacio"))){
+            opc=0;
+        }else{
+            if((materiasAlumno.get("Materia1").equals("Vacio")) || (materiasAlumno.get("Materia2").equals("Vacio"))){
+                opc=1;
+            }else{
+                opc=2;
+            }
+
+            if ((materiasAlumno.get("Materia1").equals(getGroup(padre)+""+getChild(padre, hijo))) || (materiasAlumno.get("Materia2").equals(getGroup(padre)+""+getChild(padre, hijo)))){
+                hijoTextView.setBackgroundColor(Color.CYAN);
+            }
+
         }
         Button button = (Button)convertView.findViewById(R.id.buttonChild);
             button.setText("Elegir!");
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("opcion " + opc);
+                    // System.out.println("opcion " + opc);
                     if (opc != 2) {
-                        if (elecciones.containsKey(getGroup(padre) + "" + getChildId(padre, hijo))) {
-                            elecciones.remove(getGroup(padre) + "" + getChildId(padre, hijo));
+                        if ((materiasAlumno.get("Materia1").equals(getGroup(padre) + "" + getChild(padre, hijo)))) {
+                            materiasAlumno.put("Materia1", "Vacio");
                             hijoTextView.setBackgroundColor(Color.TRANSPARENT);
                             Toast.makeText(ctx, "Deseleccionada ", 5000).show();
                             opc--;
                         } else {
-                            Toast.makeText(ctx, "Has seleccionado esta materia ", 5000).show();
-                            hijoTextView.setBackgroundColor(Color.CYAN);
-                            elecciones.put((String) getGroup(padre) + getChildId(padre, hijo), (String) getChild(padre, hijo));
-                            opc++;
-                            mate.child("materias").push().setValue(elecciones);
+                            if ((materiasAlumno.get("Materia2").equals(getGroup(padre) + "" + getChild(padre, hijo)))) {
+                                materiasAlumno.put("Materia2", "Vacio");
+                                hijoTextView.setBackgroundColor(Color.TRANSPARENT);
+                                Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                                opc--;
+                            } else {
+
+                                Toast.makeText(ctx, "Has seleccionado esta materia ", 5000).show();
+                                hijoTextView.setBackgroundColor(Color.CYAN);
+                                if (materiasAlumno.get("Materia1").equals("Vacio")) {
+                                    materiasAlumno.put("Materia1", (String) getGroup(padre) + getChild(padre, hijo));
+                                    opc++;
+
+                                } else {
+                                    materiasAlumno.put("Materia2", (String) getGroup(padre) + getChild(padre, hijo));
+                                    opc++;
+                                }
+                                mate.child("Materias").setValue(materiasAlumno);
+                            }
                         }
                     } else {
-                        if (elecciones.containsKey(getGroup(padre) + "" + getChildId(padre, hijo))) {
-                            elecciones.remove(getGroup(padre) + "" + getChildId(padre, hijo));
+
+                        if ((materiasAlumno.get("Materia1").equals(getGroup(padre) + "" + getChild(padre, hijo)))) {
+                          //  materias.remove("Materia1");
+                            materiasAlumno.put("Materia1", "Vacio");
                             hijoTextView.setBackgroundColor(Color.TRANSPARENT);
                             Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                            mate.child("Materias").setValue(materiasAlumno);
                             opc--;
                         } else {
-                            Toast.makeText(ctx, "Ya has elegido dos materias ", 5000).show();
-                    }
-               }
-            }});
+                            if ((materiasAlumno.get("Materia2").equals(getGroup(padre) + "" + getChild(padre, hijo)))) {
+                            //    materias.remove("Materia2");
+                                materiasAlumno.put("Materia2", "Vacio");
+                                hijoTextView.setBackgroundColor(Color.TRANSPARENT);
+                                Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                                mate.child("Materias").setValue(materiasAlumno);
+                                opc--;
+                            } else {
+                                Toast.makeText(ctx, "Ya has elegido dos materias ", 5000).show();
+
+                            }
+            }}}});
         return convertView;
     }
 
