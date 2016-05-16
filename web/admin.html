@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Pagina web para dar a conocer la información relacionada con los idiomas que Ofrece la Institución Tecnológico de Veracruz">
+    <meta name="keywords" content="idiomas, inglés, francés, alemán, chino">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Centro Idiomas</title>
+    <link rel="icon" href="image/icono.ico">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/general.css">
+    <script type="application/javascript" src="js/jquery-1.12.3.js"></script>
+    <script type="application/javascript" src="js/angular.min.js"></script>
+    <script type="application/javascript" src="js/angular.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="wrapper">
+            <!-- Inicio del menu -->
+            <nav ng-include src="'menu.html'">
+            </nav>
+            <!-- Fin del menu-->
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Inicio del Titulo de la pagina-->
+                            <h1 class="page-header">
+                                Header
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Con este script me permite integrar plantillas a mi paguina html con angularjs-->
+    <script>
+        var miAPlicacion = angular.module('include', []);
+    </script>
+</body>
+
+</html>

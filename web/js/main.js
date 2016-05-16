@@ -1,27 +1,40 @@
 var Usuario = {
-    inicioSesion: function (usuario, pass) {
-        var ref = new Firebase($urlApp);
-        ref.authWithPassword({
-            email: usuario
-            , password: pass
-        }, function (error, authData) {
-            if (error) {
-                alert("Login Failed!", error);
-            } else {
-                alert("Authenticated successfully with payload:", authData);
-            }
-        })
-    }
-    , crearUsuario: function (email, password) {
+        inicioSesion: function (usuario, pass, url) {
+            var ref = new Firebase($urlApp);
+            ref.authWithPassword({
+                email: usuario
+                , password: pass
+            }, function (error, authData) {
+                if (error) {
+                    switch (error.code) {
+                    case "INVALID_EMAIL":
+                        alert("Correo invalido.");
+                        break;
+                    case "INVALID_PASSWORD":
+                        alert("Contraseña incorrecta.");
+                        break;
+                    case "INVALID_USER":
+                        alert("Usuario incorrecto.");
+                        break;
+                    default:
+                        alert("Error de logeo: ", error);
+                    }
+                } else {
+                    window.location.href=url;
+                    window.location.reload;
+                }
+            })
+        }
+        , crearUsuario: function (correo, pass) {
         var ref = new Firebase($urlApp);
         ref.createUser({
-            email: "ivan_archer93@hotmail.com"
-            , password: "newyork1209"
+            email : correo
+            , password : pass
         }, function (error, userData) {
             if (error) {
-                alert("Error creating user:", error);
+                alert("Error al crear el nuevo usuario: "+ error.code);
             } else {
-                alert("Successfully created user account with uid:", userData.uid);
+                alert("Usuario creado corretcmente");
             }
         });
     }
@@ -31,9 +44,9 @@ var Usuario = {
             email: email
         }, function (error) {
             if (error === null) {
-                console.log("Password reset email sent successfully");
+                alert("Restablecimiento de contraseña de correo electrónico enviado con éxito");
             } else {
-                console.log("Error sending password reset email:", error);
+                Alert("Error al restablecer su contraseña al correo");
             }
         });
     }
@@ -44,6 +57,17 @@ $(document).ready(function ($) {
     $('#bt-inicio').click(function () {
         var user=$('input#user').val();
         var contrasena = $('input#password').val();
-        Usuario.inicioSesion(user, contrasena);
+        Usuario.inicioSesion(user, contrasena, "admin.html");
+    });
+    $('#bt_Aceptar').click(function(){
+        var email=$('input#email').val();
+        var contrasena = $('input#password2').val();
+        Usuario.crearUsuario(email, contrasena);
+        $('#modalRegistro').modal('hide');
+    });
+    $('#bt_Aceptar2').click(function(){
+        var email=$('input#email2').val();
+        Usuario.recuperarContrasena(email);
+        $('#modalRecuperacion').modal('hide');
     });
 });
