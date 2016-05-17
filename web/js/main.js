@@ -8,7 +8,7 @@ var Usuario = {
                 if (error) {
                     switch (error.code) {
                     case "INVALID_EMAIL":
-                        alert("Correo invalido.");
+                        alert("Correo inválido.");
                         break;
                     case "INVALID_PASSWORD":
                         alert("Contraseña incorrecta.");
@@ -17,7 +17,7 @@ var Usuario = {
                         alert("Usuario incorrecto.");
                         break;
                     default:
-                        alert("Error de logeo: ", error);
+                        alert("Error al iniciar sesión: ", error);
                     }
                 } else {
                     window.location.href=url;
@@ -34,7 +34,7 @@ var Usuario = {
             if (error) {
                 alert("Error al crear el nuevo usuario: "+ error.code);
             } else {
-                alert("Usuario creado corretcmente");
+                alert("Usuario creado correctamente");
             }
         });
     }
