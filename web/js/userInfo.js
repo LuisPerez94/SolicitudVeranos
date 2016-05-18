@@ -7,11 +7,14 @@ var materia2 = [];
 
 $(document).on("ready", main);
 
+
+
 function main(){
 	//alert("Espere mientras carga");
 	getUsers();
 	$("#botonResultados").on("click", imprimirMaterias);
 	$("#botonMasSolicitadas").on("click", contarMaterias);
+
 }
 
 //Agregamos un callback asíncrono para leer los datos en la referencia a la bd.
@@ -66,14 +69,14 @@ function getUsers(){
 			alumnos.push(key);
 
 			refMat1.on("value", function(nombreMateria){
-				console.log(nombreMateria.val());
+				//console.log(nombreMateria.val());
 				mat1 = nombreMateria.val();
 				materia1.push(mat1);
 			});
 			
 
 			refMat2.on("value", function(nombreMateria){
-				console.log(nombreMateria.val());
+				//console.log(nombreMateria.val());
 				mat2 = nombreMateria.val();
 				materia2.push(mat2);
 			});
@@ -89,69 +92,73 @@ function getUsers(){
 
 //Las materias más escogidas.
 function contarMaterias(){
-	// Primer semestre
-	var calculoDiferencial = 0;
-	var fundamentosProgramacion = 0;
-	var tallerEtica = 0;
-	var matematicasDiscretas = 0;
-	var tallerAdministracion = 0;
-	var fundamentosInvestigacon = 0;
+	/*
 
-	//Segundo semestre
-	var calculoIntegral = 0;
-	var programacionOrientadaObjetos = 0;
-	var contabilidadFinanciera = 0;
-	var quimica = 0;
-	var algebraLineal = 0;
-	var probabilidadEstadistica = 0;
+	Ejemplo de ordenamiento de array asociativo
+*/
+	//items.sort(function (a, b){
+	 //   return (b.value - a.value)
+	//})
 
-	//Tercer semestre
-	var calculoVectorial = 0;
-	var estructuraDatos = 0;
-	var culturaEmpresarial = 0;
-	var investigacionOperaciones = 0;
-	var sistemasOperativos = 0;
-	var fisicaGeneral = 0;
+	//items.sort(function (a, b) {
+	 //   return (b.perc - a.perc)
+	//})
+	
 
-	//Cuarto semestre
-	var ecuacionesDiferenciales = 0;
-	var metodosNumericos = 0;
-	var topicosAvanzadosProgramacion = ["TAP", 0];
-	var fundamentosBaseDeDatos = 0;
-	var tallerSistemasOperativos = 0;
-	var principiosElectricos = 0;
+	var materiasSistemas = [
+		{id:"Calculo diferencial", 								semestre: 1, escogido: 0},
+		{id:"Fundamentos de programacion", 						semestre: 1, escogido: 0},
+		{id:"Taller de etica", 									semestre: 1, escogido: 0},
+		{id:"Matematicas discretas", 							semestre: 1, escogido: 0},
+		{id:"Taller de administracion", 						semestre: 1, escogido: 0},
+		{id:"Fundamentos de investigación", 					semestre: 1, escogido: 0},
+		{id:"Calculo integral", 								semestre: 2, escogido: 0},
+		{id:"Programacion orientada a objetos", 				semestre: 2, escogido: 0},
+		{id:"Contabilidad financiera", 							semestre: 2, escogido: 0},
+		{id:"Quimica", 											semestre: 2, escogido: 0},
+		{id:"Algebra lineal", 									semestre: 2, escogido: 0},
+		{id:"Probabilidad y estadistica", 						semestre: 2, escogido: 0},
+		{id:"Calculo vectorial", 								semestre: 3, escogido: 0},
+		{id:"Estructura de datos", 								semestre: 3, escogido: 0},
+		{id:"Cultura empresarial", 								semestre: 3, escogido: 0},
+		{id:"Investigacion de operaciones", 					semestre: 3, escogido: 0},
+		{id:"Sistemas operativos", 								semestre: 3, escogido: 0},
+		{id:"Fisica general", 									semestre: 3, escogido: 0},
+		{id:"Ecuaciones diferenciales", 						semestre: 4, escogido: 0},
+		{id:"Metodos numericos", 								semestre: 4, escogido: 0},
+		{id:"Topicos avanzados de programacion", 				semestre: 4, escogido: 0},
+		{id:"Fundamentos de base de datos", 					semestre: 4, escogido: 0},
+		{id:"Taller de sistemas operativos", 					semestre: 4, escogido: 0},
+		{id:"Principios electricos y aplicaciones digitales", 	semestre: 4, escogido: 0},
+		{id:"Desarrollo sustentable", 							semestre: 5, escogido: 0},
+		{id:"Fundamentos de telecomunicaciones", 				semestre: 5, escogido: 0},
+		{id:"Taller de base de datos", 							semestre: 5, escogido: 0},
+		{id:"Simulacion", 										semestre: 5, escogido: 0},
+		{id:"Fundamentos de ingenieria de software", 			semestre: 5, escogido: 0},
+		{id:"Arquitectura de computadora", 						semestre: 5, escogido: 0},
+		{id:"Lenguajes y automatas I", 							semestre: 6, escogido: 0},
+		{id:"Administracion de base de datos", 					semestre: 6, escogido: 0},
+		{id:"Graficacion", 										semestre: 6, escogido: 0},
+		{id:"Redes de computadora", 							semestre: 6, escogido: 0},
+		{id:"Ingenieria de software", 							semestre: 6, escogido: 0},
+		{id:"Lenguajes de interfaz", 							semestre: 6, escogido: 0},
+		{id:"Lenguajes y automatas II", 						semestre: 7, escogido: 0},
+		{id:"Conmutacion y enrutamiento de redes de datos", 	semestre: 7, escogido: 0},
+		{id:"Taller de investigacion I", 						semestre: 7, escogido: 0},
+		{id:"Gestion de proyectos de software", 				semestre: 7, escogido: 0},
+		{id:"Sistemas programables", 							semestre: 7, escogido: 0},
+		{id:"Programacion logica y funcional", 					semestre: 8, escogido: 0},
+		{id:"Administracion de redes", 							semestre: 8, escogido: 0},
+		{id:"Taller de investigacion II", 						semestre: 8, escogido: 0},
+		{id:"Programacion web", 								semestre: 8, escogido: 0},
+		{id:"Inteligencia artificial", 							semestre: 9, escogido: 0},
+	]
 
-	//Quinto semestre
-	var desarrolloSustentable = 0;
-	var fundamentosTelecomunicaciones = 0;
-	var tallerBaseDeDatos = 0;
-	var simulacion = 0;
-	var fundamentosIngenieriaSoftware = 0;
-	var arquitecturaComputadora = 0;
-
-	//Sexto semestre
-	var lenguajesAutomatas1 = 0;
-	var administracionBaseDeDatos = 0;
-	var graficacion = 0;
-	var redesComputadora = 0;
-	var ingenieriaSoftware = 0;
-	var lenguajesInterfaz = 0;
-
-	//Septimo semestre
-	var lenguajesAutomatas2 = 0;
-	var conmutacionEnrutamientoRedesDatos = 0;
-	var tallerInvestigacion1 = 0;
-	var gestionProyectosSoftware = 0;
-	var sistemasProgramables = 0;
-
-	//Octavo semestre
-	var programacionLogicaFuncional = 0;
-	var administracionRedes = 0;
-	var tallerInvestigacion2 = 0;
-	var programacionWeb = 0;
-
-	//Noveno semestre
-	var inteligenciaArtificial = 0;
+	//console.log(materiasSistemas[10]['id']);
+	//console.log(materiasSistemas.length);
+	//var escogido = materiasSistemas[7]['escogido'] + 1;
+	//materiasSistemas[7]['escogido'] = escogido;
+	//console.log("La materia " + materiasSistemas[7]['id'] + " fue escogida " + (materiasSistemas[7]['escogido'] + 10) + " veces.");
 
 	//Deja el array como [semestre, materiaMaestro];
 	//var materiaActualAux = materia1[1].split("Semestre");
@@ -167,21 +174,54 @@ function contarMaterias(){
 
 	var materiaActualAux1, materiaActual1;
 	var materiaActualAux2, materiaActual2;
+	var encontradas = 0;
 
 	for(var i = 0; i < alumnos.length; i++){
-		var materiaActualAux1 = materia1[i].split("Semestre");
-		var materiaActual1 = materiaActualAux1[1].split("\n");
+		materiaActualAux1 = materia1[i].split("Semestre");
+		materiaActual1 = materiaActualAux1[1].split("\n");
 
-		var materiaActualAux2 = materia2[i].split("Semestre");
-		var materiaActual2 = materiaActualAux1[1].split("\n");
+		materiaActualAux2 = materia2[i].split("Semestre");
+		materiaActual2 = materiaActualAux2[1].split("\n");
+
+			console.log(materiaActual2[0]);
 
 
-		if(materiaActual1[0] == topicosAvanzadosProgramacion[0] || materiaActual2[0] == topicosAvanzadosProgramacion[0]){
-			topicosAvanzadosProgramacion[1] ++;
+		//For para el array de la primera materia
+		for(var j = 0; j < materiasSistemas.length; j++){
+			//console.log(materiasSistemas[j]['id']);
+			//console.log(materiaActual1[0]);
+			//console.log(materiaActual2[0]);
+
+			if(materiaActual1[0] == materiasSistemas[j]['id'] || materiaActual2[0] == materiasSistemas[j]['id']){
+				materiasSistemas[j]['escogido'] ++;
+				console.log("Materia encontrada: " + materiasSistemas[j]['id']);
+				encontradas++;
+			}
+
+			if(encontradas == 2){
+				encontradas = 0;
+				break;
+			}
+
 		}
 	}
 
-	$("body").append("<br/> <br/> Tópicos avanzados de programación fue elegida: " + topicosAvanzadosProgramacion[1] + " veces");
+	//$("body").append("<br/> <br/> Tópicos avanzados de programación fue elegida: " + materiasSistemas[20]['escogido'] + " veces");
+
+	materiasSistemas.sort(function (a, b) {
+	    return (b.escogido - a.escogido)
+	})
+
+	var materiasOrdenadas = materiasSistemas.sort();
+
+	$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
+
+	for(var k = 0; materiasOrdenadas[k]['escogido'] > 0; k++){
+		$("body").append("<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
+			+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces.");
+	}
+
+	//console.log(materiasSistemas.sort());
 }
 
 
