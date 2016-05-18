@@ -7,23 +7,83 @@
     <meta name="description" content="Pagina web para dar a conocer la información relacionada con los idiomas que Ofrece la Institución Tecnológico de Veracruz">
     <meta name="keywords" content="idiomas, inglés, francés, alemán, chino">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Centro Idiomas</title>
+    <title>Administración de veranos</title>
     <link rel="icon" href="image/icono.ico">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/general.css">
+
+    <link rel="stylesheet" href="css/admin.css">
+
     <script type="application/javascript" src="js/jquery-1.12.3.js"></script>
     <script type="application/javascript" src="js/angular.min.js"></script>
-    <script type="application/javascript" src="js/angular.min.js"></script>
     <script type="application/javascript" src="js/bootstrap.js"></script>
+
+
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>     
+    <script>   google.load("visualization", "1", {packages:["corechart"]});
+    </script>
 </head>
 
 <body>
     <div class="wrapper">
         <div id="wrapper">
             <!-- Inicio del menu -->
-            <nav ng-include src="'menu.html'">
-            </nav>
+            <!--<nav ng-include src="'menu.html'">
+            </nav>-->
+
+
+
+            
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+        <a class="navbar-brand" href="menu_Administrador.html" style="color: white">Administración de veranos ITVer</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+ <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li class="active">
+                <a href="#" id="reg"> Ver registros</a>
+            </li>
+            <li>
+                <a href="#" id="lis"> Ver lista</a>
+            </li>
+            <li>
+                <a href="#" id="gra"> Grafica</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+
+
+
+
+
+
+
             <!-- Fin del menu-->
             <div id="page-wrapper">
                 <div class="container-fluid">
@@ -31,7 +91,7 @@
                         <div class="col-lg-12">
                             <!-- Inicio del Titulo de la pagina-->
                             <h1 class="page-header">
-                                Header
+                                Bienvenido
                             </h1>
                         </div>
                     </div>
@@ -39,10 +99,20 @@
             </div>
         </div>
     </div>
+
+
+    <div id="registros"></div>
+
+    <div id="lista"></div>
+
+    <div id="grafica"></div>
     <!--Con este script me permite integrar plantillas a mi paguina html con angularjs-->
     <script>
         var miAPlicacion = angular.module('include', []);
     </script>
+    
+    <script type="text/javascript" src="js/userInfo.js"></script>
+
 </body>
 
 </html>

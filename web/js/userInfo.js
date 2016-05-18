@@ -3,7 +3,7 @@ var ref = new Firebase("https://blinding-inferno-2140.firebaseio.com");
 var alumnos = [];
 var materia1 = [];
 var materia2 = [];
-
+var materiasOrdenadas = [];
 
 $(document).on("ready", main);
 
@@ -12,9 +12,33 @@ $(document).on("ready", main);
 function main(){
 	//alert("Espere mientras carga");
 	getUsers();
-	$("#botonResultados").on("click", imprimirMaterias);
-	$("#botonMasSolicitadas").on("click", contarMaterias);
+	//$("#botonResultados").on("click", imprimirMaterias);
+	//$("#botonMasSolicitadas").on("click", contarMaterias);
+	//$("#botonGrafica").on("click", dibujarGrafico);
+	$("#reg").on("click", function(e){
+		e.preventDefault();
+		imprimirMaterias();
+	});
+	$("#lis").on("click", function(e){
+		e.preventDefault();
+		contarMaterias();
+	});
+	$("#gra").on("click", function(e){
+		e.preventDefault();
+		dibujarGrafico();
+	});
 
+	$("#registros").css({
+		"opacity":"0"
+	});
+
+	$("#lista").css({
+		"opacity":"0"
+	});
+
+	$("#grafica").css({
+		"opacity":"0"
+	});
 }
 
 //Agregamos un callback asíncrono para leer los datos en la referencia a la bd.
@@ -43,12 +67,27 @@ function datosChild(){
 
 function imprimirMaterias(){
 	var i = 0;
-
+	var materias = "";
 		for(i = 0; i < alumnos.length; i++){
-			$("body").append("<br/><br/>" + (i+1) + ".- " + alumnos[i]);
-			$("body").append("<br/>" + materia1[i] + "");
-			$("body").append("<br/>" + materia2[i] + "");
+			//$("body").append("<br/><br/>" + (i+1) + ".- " + alumnos[i]);
+			//$("body").append("<br/>" + materia1[i] + "");
+			//$("body").append("<br/>" + materia2[i] + "");
+			materias += "<br/><br/>" + (i+1) + ".- " + alumnos[i]
+						+ "<br/>" + materia1[i] + "<br/>" + materia2[i];
 		}
+	$("#registros").html(materias);
+
+	$("#registros").css({
+		"opacity":"1"
+	});
+
+	$("#lista").css({
+		"opacity":"0"
+	});
+
+	$("#grafica").css({
+		"opacity":"0"
+	});
 }
 
 
@@ -96,6 +135,7 @@ function contarMaterias(){
 
 	Ejemplo de ordenamiento de array asociativo
 */
+	//var items = [ {id:"TAP", value:3, perc:0.5}, {id:"GRAF", value:2, perc:1.3}, {id:"TAL", value:1, perc:0.2} ]
 	//items.sort(function (a, b){
 	 //   return (b.value - a.value)
 	//})
@@ -212,18 +252,72 @@ function contarMaterias(){
 	    return (b.escogido - a.escogido)
 	})
 
-	var materiasOrdenadas = materiasSistemas.sort();
+	materiasOrdenadas = materiasSistemas.sort();
 
-	$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
+	var lista = "";
+
+	//$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
+	lista += "<br/><br/> Estas fueron las materias más solicitadas: ";
 
 	for(var k = 0; materiasOrdenadas[k]['escogido'] > 0; k++){
-		$("body").append("<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
-			+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces.");
+		//$("body").append("<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
+		//	+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces.");
+		lista += "<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
+			+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces."
 	}
 
 	//console.log(materiasSistemas.sort());
+	$("#lista").html(lista);
+
+	$("#registros").css({
+		"opacity":"0"
+	});
+
+	$("#lista").css({
+		"opacity":"1"
+	});
+
+	$("#grafica").css({
+		"opacity":"0"
+	});
 }
 
+function dibujarGrafico() {
+  	 google.setOnLoadCallback(dibujarGrafico);
+     // Tabla de datos: valores y etiquetas de la gráfica
+     var data = google.visualization.arrayToDataTable([
+     	['Texto', 'Veces solicitada'],
+     	[materiasOrdenadas[0]['id'], materiasOrdenadas[0]['escogido']],
+     	[materiasOrdenadas[1]['id'], materiasOrdenadas[1]['escogido']],
+     	[materiasOrdenadas[2]['id'], materiasOrdenadas[2]['escogido']],
+     	[materiasOrdenadas[3]['id'], materiasOrdenadas[3]['escogido']],
+     	[materiasOrdenadas[4]['id'], materiasOrdenadas[4]['escogido']],
+     	/*['Texto1', 20.21],
+     	['Texto2', 4.28],
+     	['Texto3', 17.26],
+     	['Texto4', 10.25]*/
+     	]);
+     var options = {
+     	title: 'Las materias más escogidas para sistemas'
+     }
+     // Dibujar el gráfico
+     new google.visualization.ColumnChart( 
+     //ColumnChart sería el tipo de gráfico a dibujar
+     document.getElementById('grafica')
+     ).draw(data, options);
+
+	$("#registros").css({
+		"opacity":"0"
+	});
+
+	$("#lista").css({
+		"opacity":"0"
+	});
+
+	$("#grafica").css({
+		"opacity":"1"
+	}); 
+ }
 
 
 
