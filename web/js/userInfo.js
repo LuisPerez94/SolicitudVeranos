@@ -11,7 +11,7 @@ $(document).on("ready", main);
 
 function main(){
 	//alert("Espere mientras carga");
-	getUsers();
+	//getUsers();
 	//$("#botonResultados").on("click", imprimirMaterias);
 	//$("#botonMasSolicitadas").on("click", contarMaterias);
 	//$("#botonGrafica").on("click", dibujarGrafico);
@@ -22,10 +22,11 @@ function main(){
 	$("#lis").on("click", function(e){
 		e.preventDefault();
 		contarMaterias();
+		mostrarLista();
 	});
 	$("#gra").on("click", function(e){
 		e.preventDefault();
-		dibujarGrafico();
+		getUsers();
 	});
 
 	$("#registros").css({
@@ -37,8 +38,15 @@ function main(){
 	});
 
 	$("#grafica").css({
-		"opacity":"0"
+		"opacity":"1"
 	});
+
+	ref.child("users").on("value", function(snapshot){
+		if($("#grafica").css("opacity") == 1){
+			setTimeout(getUsers(), 1000);
+		}
+	})
+
 }
 
 //Agregamos un callback asíncrono para leer los datos en la referencia a la bd.
@@ -92,7 +100,12 @@ function imprimirMaterias(){
 
 
 //Iterar todos los hijos de un nodo.
-function getUsers(){
+function getUsers(){	
+		alumnos = [];
+		materia1 = [];
+		materia2 = [];
+		materiasOrdenadas = [];
+
 	var refUsers = ref.child("users");
 	var mat1, mat2;
 
@@ -108,14 +121,14 @@ function getUsers(){
 			alumnos.push(key);
 
 			refMat1.on("value", function(nombreMateria){
-				//console.log(nombreMateria.val());
+				console.log(nombreMateria.val());
 				mat1 = nombreMateria.val();
 				materia1.push(mat1);
 			});
 			
 
 			refMat2.on("value", function(nombreMateria){
-				//console.log(nombreMateria.val());
+				console.log(nombreMateria.val());
 				mat2 = nombreMateria.val();
 				materia2.push(mat2);
 			});
@@ -126,6 +139,7 @@ function getUsers(){
 		});
 		
 		//imprimirMaterias();
+		setTimeout(contarMaterias(), 6000);
 	});
 }
 
@@ -217,12 +231,19 @@ function contarMaterias(){
 	var encontradas = 0;
 
 	for(var i = 0; i < alumnos.length; i++){
-		materiaActualAux1 = materia1[i].split("Semestre");
-		materiaActual1 = materiaActualAux1[1].split("\n");
+		if(materia1[i] != "Vacio"){
+			materiaActualAux1 = materia1[i].split("Semestre");
+			materiaActual1 = materiaActualAux1[1].split("\n");
+		}else{
+						materiaActual1 = "Vacio";
+		}
 
-		materiaActualAux2 = materia2[i].split("Semestre");
-		materiaActual2 = materiaActualAux2[1].split("\n");
-
+		if(materia2[i] != "Vacio"){
+			materiaActualAux2 = materia2[i].split("Semestre");
+			materiaActual2 = materiaActualAux2[1].split("\n");
+		}else{
+						materiaActual2 = "Vacio";
+		}
 			console.log(materiaActual2[0]);
 
 
@@ -254,6 +275,10 @@ function contarMaterias(){
 
 	materiasOrdenadas = materiasSistemas.sort();
 
+	setTimeout(actualizarGrafica(), 6000);
+}
+
+function mostrarLista(){
 	var lista = "";
 
 	//$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
@@ -282,8 +307,8 @@ function contarMaterias(){
 	});
 }
 
-function dibujarGrafico() {
-  	 google.setOnLoadCallback(dibujarGrafico);
+function actualizarGrafica(){
+	google.setOnLoadCallback(dibujarGrafico);
      // Tabla de datos: valores y etiquetas de la gráfica
      var data = google.visualization.arrayToDataTable([
      	['Texto', 'Veces solicitada'],
@@ -306,6 +331,11 @@ function dibujarGrafico() {
      document.getElementById('grafica')
      ).draw(data, options);
 
+     setTimeout(dibujarGrafico(), 1000);
+
+}
+
+function dibujarGrafico() {
 	$("#registros").css({
 		"opacity":"0"
 	});
