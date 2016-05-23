@@ -1,6 +1,7 @@
 //Obtenemos la referencia a la base de datos.
 var ref = new Firebase("https://blinding-inferno-2140.firebaseio.com");
 var alumnos = [];
+var nombres=[];
 var materia1 = [];
 var materia2 = [];
 var materiasOrdenadas = [];
@@ -75,14 +76,15 @@ function datosChild(){
 
 function imprimirMaterias(){
 	var i = 0;
-	var materias = "";
+	var materias = "<table class='table' style='width:100%; text-align:center;'>";
 		for(i = 0; i < alumnos.length; i++){
 			//$("body").append("<br/><br/>" + (i+1) + ".- " + alumnos[i]);
 			//$("body").append("<br/>" + materia1[i] + "");
 			//$("body").append("<br/>" + materia2[i] + "");
-			materias += "<br/><br/>" + (i+1) + ".- " + alumnos[i]
-						+ "<br/>" + materia1[i] + "<br/>" + materia2[i];
+			materias += "<tr class='success'><th>Nombre del Alumno </th><td>"+ nombres[i]+"</td></tr>"
+						+ "<tr><th>Materia </th><td>" + materia1[i] + "</td></tr><tr><th>Materia </th><td>" + materia2[i]+"</td></tr>";
 		}
+		materias+="</table>"
 	$("#registros").html(materias);
 
 	$("#registros").css({
@@ -113,12 +115,19 @@ function getUsers(){
 		snapshot.forEach(function(childSnapshot){
 
 			var key = childSnapshot.key();
+			var nombre  = refUsers.child(key+"/Nombre");
 			var refMat1 = refUsers.child(key+"/Materias/Materia1");
 			var refMat2 = refUsers.child(key+"/Materias/Materia2");
 
-
-			console.log(key);
+			//console.log(nombre);
+			//console.log(key);
 			alumnos.push(key);
+
+			nombre.on("value",function(nombre){
+				nom=nombre.val();
+				console.log(nom);
+				nombres.push(nom);
+			});
 
 			refMat1.on("value", function(nombreMateria){
 				console.log(nombreMateria.val());
@@ -282,14 +291,18 @@ function mostrarLista(){
 	var lista = "";
 
 	//$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
-	lista += "<br/><br/> Estas fueron las materias más solicitadas: ";
+	lista += "<br/><br/> Estas fueron las materias más solicitadas:<br /> ";
 
+	lista+="<table class='table-striped' style='width:100%; text-align:center;'>";
+	lista+="<tr><th>Materia</th><th>Semestre</th><th>Veces Elegida</th></tr>";
 	for(var k = 0; materiasOrdenadas[k]['escogido'] > 0; k++){
 		//$("body").append("<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
 		//	+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces.");
-		lista += "<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre'] 
-			+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces."
+		lista += "<tr><td>" + materiasOrdenadas[k]['id'] + " </td><td>" + materiasOrdenadas[k]['semestre'] 
+			+ "</td><td>" + materiasOrdenadas[k]['escogido'] + "</td></tr>"
 	}
+
+	lista+="</table>";
 
 	//console.log(materiasSistemas.sort());
 	$("#lista").html(lista);
