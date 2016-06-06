@@ -1,5 +1,15 @@
 var Usuario = {
         inicioSesion: function (usuario, pass, url) {
+
+            $("#loading").css({
+                "background-image":"url('img/loading.gif')",
+                "background-size":"50px 50px",
+                "height":"50px",
+                "width":"50px",
+                "display":"block",
+                "margin":"10px auto"
+            });
+
             var ref = new Firebase($urlApp);
             ref.authWithPassword({
                 email: usuario
@@ -19,6 +29,10 @@ var Usuario = {
                     default:
                         alert("Error al iniciar sesión: ", error);
                     }
+
+                    $("#loading").css({
+                        "display":"none"
+                    });
                 } else {
                     window.location.href=url;
                     window.location.reload;

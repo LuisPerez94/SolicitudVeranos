@@ -1,0 +1,269 @@
+{
+  "Carreras" : {
+    "Sistemas" : {
+      "1Semestre" : {
+        "M1" : {
+          "Nombre" : "Calculo diferencial",
+          "Profesor" : "Puriel Roman Garcia"
+        },
+        "M2" : {
+          "Nombre" : "Fundamentos de programacion",
+          "Profesor" : "Senen Juarez Tinoco"
+        },
+        "M3" : {
+          "Nombre" : "Taller de etica",
+          "Profesor" : "Margarita Ostos Abreu"
+        },
+        "M4" : {
+          "Nombre" : "Matematicas discretas",
+          "Profesor" : "Javier Solis Lopez"
+        },
+        "M5" : {
+          "Nombre" : "Taller de administracion",
+          "Profesor" : "Maria Eugenia Palencia"
+        },
+        "M6" : {
+          "Nombre" : "Fundamentos de investigacion",
+          "Profesor" : "Maria Guadalupe Guevara Lobato"
+        }
+      },
+      "2Semestre" : {
+        "M1" : {
+          "Nombre" : "Calculo integral",
+          "Profesor" : "Javier Baez Silva"
+        },
+        "M2" : {
+          "Nombre" : "Programacion orientada a objetos",
+          "Profesor" : "Senen Juarez Tinoco"
+        },
+        "M3" : {
+          "Nombre" : "Contabilidad financiera",
+          "Profesor" : "Marina Cecilia"
+        },
+        "M4" : {
+          "Nombre" : "Quimica",
+          "Profesor" : "Sandra Carmona Reyes"
+        },
+        "M5" : {
+          "Nombre" : "Algebra lineal",
+          "Profesor" : "Tomas Arroyo"
+        },
+        "M6" : {
+          "Nombre" : "Probabilidad y estadistica",
+          "Profesor" : "Arzamendi"
+        }
+      },
+      "3Semestre" : {
+        "M1" : {
+          "Nombre" : "Calculo vectorial",
+          "Profesor" : "Maria del Carmen Nolasco Mata"
+        },
+        "M2" : {
+          "Nombre" : "Estructura de datos",
+          "Profesor" : "Rafael Cordoba del Valle"
+        },
+        "M3" : {
+          "Nombre" : "Cultura empresarial",
+          "Profesor" : "Noemi del Carmen Tenorio Prieto"
+        },
+        "M4" : {
+          "Nombre" : "Investigacion de operaciones",
+          "Profesor" : "Hector Lagunes Urreta"
+        },
+        "M5" : {
+          "Nombre" : "Sistemas operativos",
+          "Profesor" : "Martha Martinez Moreno"
+        },
+        "M6" : {
+          "Nombre" : "Fisica general",
+          "Profesor" : "Jorge Armando Alamillo Rico"
+        }
+      },
+      "4Semestre" : {
+        "M1" : {
+          "Nombre" : "Ecuaciones diferenciales",
+          "Profesor" : "Jorge Arturo Mendoza Sosa"
+        },
+        "M2" : {
+          "Nombre" : "Metodos numericos",
+          "Profesor" : "Arguelles"
+        },
+        "M3" : {
+          "Nombre" : "Topicos avanzados de programacion",
+          "Profesor" : "Rafael Rivera Lopez"
+        },
+        "M4" : {
+          "Nombre" : "Fundamentos de base de datos",
+          "Profesor" : "Ezequiel Pina Ortiz"
+        },
+        "M5" : {
+          "Nombre" : "Taller de sistemas operativos",
+          "Profesor" : "Luis Bernardo Ballesteros Barradas"
+        },
+        "M6" : {
+          "Nombre" : "Principios electricos y aplicaciones digitales",
+          "Profesor" : "Marcos Alonso Mendez Gamboa"
+        }
+      },
+      "5Semestre" : {
+        "M1" : {
+          "Nombre" : "Desarrollo sustentable",
+          "Profesor" : "Sandra Carmona Reyes"
+        },
+        "M2" : {
+          "Nombre" : "Fundamentos de telecomunicaciones",
+          "Profesor" : "Rocio Contreras"
+        },
+        "M3" : {
+          "Nombre" : "Taller de base de datos",
+          "Profesor" : "Jesus Cruzado Callejas"
+        },
+        "M4" : {
+          "Nombre" : "Simulacion",
+          "Profesor" : "Vargas y Mendoza"
+        },
+        "M5" : {
+          "Nombre" : "Fundamentos de ingenieria de software",
+          "Profesor" : "Collins"
+        },
+        "M6" : {
+          "Nombre" : "Arquitectura de computadora",
+          "Profesor" : "Norma Fabiola"
+        }
+      },
+      "6Semestre" : {
+        "M1" : {
+          "Nombre" : "Lenguajes y automatas I",
+          "Profesor" : "Ofelia Gutierrez Giraldi"
+        },
+        "M2" : {
+          "Nombre" : "Administracion de base de datos",
+          "Profesor" : "Jose Evaristo Pacheco Velasco"
+        },
+        "M3" : {
+          "Nombre" : "Graficacion",
+          "Profesor" : "Abelardo Rodriguez Leon"
+        },
+        "M4" : {
+          "Nombre" : "Ingenieria de software",
+          "Profesor" : "Luis Enrique del Moral"
+        },
+        "M5" : {
+          "Nombre" : "Lenguajes de interfaz",
+          "Profesor" : "Mejia Perez"
+        }
+      },
+      "7Semestre" : {
+        "M1" : {
+          "Nombre" : "Lenguajes y automatas II",
+          "Profesor" : "Martha Martinez Moreno"
+        },
+        "M2" : {
+          "Nombre" : "Conmutacion y enrutamiento de redes de datos",
+          "Profesor" : "Leonardo Lezama Hernandez"
+        },
+        "M3" : {
+          "Nombre" : "Taller de investigacion I",
+          "Profesor" : "Leonardo Lezama Hernandez"
+        },
+        "M4" : {
+          "Nombre" : "Gestion de proyectos de software",
+          "Profesor" : "Felipe Verdalet Guzman"
+        },
+        "M5" : {
+          "Nombre" : "Sistemas programables",
+          "Profesor" : "Jose Antonio"
+        }
+      },
+      "8Semestre" : {
+        "M1" : {
+          "Nombre" : "Programacion logica y funcional",
+          "Profesor" : "Hector Adolfo Andrade Gomez"
+        },
+        "M2" : {
+          "Nombre" : "Administracion de redes",
+          "Profesor" : "Lizbeth Sanchez Ferrer"
+        },
+        "M3" : {
+          "Nombre" : "Taller de investigacion II",
+          "Profesor" : "Noemi del Carmen Tenorio Prieto"
+        },
+        "M4" : {
+          "Nombre" : "Programacion web",
+          "Profesor" : "Jose Evaristo Pacheco Velasco"
+        }
+      },
+      "9Semestre" : {
+        "M1" : {
+          "Nombre" : "Inteligencia artificial",
+          "Profesor" : "Jose Luis Torres Montoya"
+        }
+      }
+    }
+  },
+  "users" : {
+    "23366c1c-a03f-45d0-aa37-11151e6483ec" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "2 SemestreProgramacion orientada a objetos\nSenen Juarez Tinoco",
+        "Materia2" : "1 SemestreCalculo diferencial\nPuriel Roman Garcia"
+      },
+      "Matricula" : "E17739279",
+      "Nombre" : "Monti"
+    },
+    "24b9ed31-0449-4acc-949b-c59964048d1f" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "3 SemestreCalculo vectorial\nMaria del Carmen Nolasco Mata",
+        "Materia2" : "2 SemestreProgramacion orientada a objetos\nSenen Juarez Tinoco"
+      },
+      "Matricula" : "E09123456",
+      "Nombre" : "Miguel Bobadilla"
+    },
+    "329ea148-9f66-4669-b4e0-16b07789c6ef" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "4 SemestreEcuaciones diferenciales\nJorge Arturo Mendoza Sosa",
+        "Materia2" : "8 SemestreAdministracion de redes\nLizbeth Sanchez Ferrer"
+      },
+      "Matricula" : "E12020847",
+      "Nombre" : "ivan"
+    },
+    "63615d50-e331-447d-8b5d-7cb7a775ff0c" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "9 SemestreInteligencia artificial\nJose Luis Torres Montoya",
+        "Materia2" : "8 SemestreProgramacion web\nJose Evaristo Pacheco Velasco"
+      },
+      "Matricula" : "E12020828",
+      "Nombre" : "Naomi"
+    },
+    "8aa1d979-5a65-4e83-8a8d-97fa46b2d7f8" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "8 SemestreProgramacion web\nJose Evaristo Pacheco Velasco",
+        "Materia2" : "8 SemestreProgramacion logica y funcional\nHector Adolfo Andrade Gomez"
+      },
+      "Matricula" : "E12020790",
+      "Nombre" : "Aideé"
+    },
+    "b667f4a1-6538-494d-ae2b-51656e0461f0" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "9 SemestreInteligencia artificial\nJose Luis Torres Montoya",
+        "Materia2" : "8 SemestreProgramacion logica y funcional\nHector Adolfo Andrade Gomez"
+      },
+      "Matricula" : "E12020836",
+      "Nombre" : "Carmina Rogel"
+    },
+    "d8b14e6f-60f4-4f0f-b29f-7885dc29e0de" : {
+      "Carrera" : "Sistemas",
+      "Materias" : {
+        "Materia1" : "2 SemestreProgramacion orientada a objetos\nSenen Juarez Tinoco",
+        "Materia2" : "6 SemestreAdministracion de base de datos\nJose Evaristo Pacheco Velasco"
+      },
+      "Matricula" : "E12020832",
+      "Nombre" : "Luis Angel Perez Muñoz"
+    }
+  }
+}
