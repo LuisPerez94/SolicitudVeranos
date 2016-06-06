@@ -59,7 +59,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int padre, int hijo) {
-        return materias.get((padre+1)+"Semestre").get(hijo).getMateria()+"\n"+materias.get((padre+1)+"Semestre").get(hijo).getNombre();
+        return materias.get((padre + 1) + "Semestre").get(hijo).getMateria();
     }
 
     @Override
@@ -102,7 +102,9 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
         final TextView hijoTextView=(TextView)convertView.findViewById(R.id.hijo_txt);
         hijoTextView.setText(nombreHijo);
-        System.out.println("materia1 "+materiasAlumno.get("Materia1")+ " Materia 2 "+materiasAlumno.get("Materia2"));
+        final Button button = (Button)convertView.findViewById(R.id.buttonChild);
+        button.setText("Elegir!");
+        System.out.println("materia1 " + materiasAlumno.get("Materia1") + " Materia 2 " + materiasAlumno.get("Materia2"));
         if((materiasAlumno.get("Materia1").equals("Vacio")) && (materiasAlumno.get("Materia2").equals("Vacio"))){
             opc=0;
         }else{
@@ -114,19 +116,21 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
 
             if ((materiasAlumno.get("Materia1").equals(getGroup(padre)+""+getChild(padre, hijo))) || (materiasAlumno.get("Materia2").equals(getGroup(padre)+""+getChild(padre, hijo)))){
                 hijoTextView.setBackgroundColor(Color.CYAN);
+                button.setText("Quitar");
             }
 
         }
-        Button button = (Button)convertView.findViewById(R.id.buttonChild);
-            button.setText("Elegir!");
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // System.out.println("opcion " + opc);
+
                     if (opc != 2) {
                         if ((materiasAlumno.get("Materia1").equals(getGroup(padre) + "" + getChild(padre, hijo)))) {
                             materiasAlumno.put("Materia1", "Vacio");
                             hijoTextView.setBackgroundColor(Color.TRANSPARENT);
+                            button.setText("Elegir!");
                             Toast.makeText(ctx, "Deseleccionada ", 5000).show();
                             opc--;
                         } else {
@@ -134,11 +138,13 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
                                 materiasAlumno.put("Materia2", "Vacio");
                                 hijoTextView.setBackgroundColor(Color.TRANSPARENT);
                                 Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                                button.setText("Elegir!");
                                 opc--;
                             } else {
 
                                 Toast.makeText(ctx, "Has seleccionado esta materia ", 5000).show();
                                 hijoTextView.setBackgroundColor(Color.CYAN);
+                                button.setText("Quitar");
                                 if (materiasAlumno.get("Materia1").equals("Vacio")) {
                                     materiasAlumno.put("Materia1", (String) getGroup(padre) + getChild(padre, hijo));
                                     opc++;
@@ -157,6 +163,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
                             materiasAlumno.put("Materia1", "Vacio");
                             hijoTextView.setBackgroundColor(Color.TRANSPARENT);
                             Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                            button.setText("Elegir!");
                             mate.child("Materias").setValue(materiasAlumno);
                             opc--;
                         } else {
@@ -165,6 +172,7 @@ public class SemestresAdapter extends BaseExpandableListAdapter {
                                 materiasAlumno.put("Materia2", "Vacio");
                                 hijoTextView.setBackgroundColor(Color.TRANSPARENT);
                                 Toast.makeText(ctx, "Deseleccionada ", 5000).show();
+                                button.setText("Elegir!");
                                 mate.child("Materias").setValue(materiasAlumno);
                                 opc--;
                             } else {
