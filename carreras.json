@@ -1,0 +1,212 @@
+"Carreras": {
+    "Sistemas": {
+        "1Semestre": {
+            "M1": {
+                "Nombre": "Calculo diferencial"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Fundamentos de programacion"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Taller de etica"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Matematicas discretas"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Taller de administracion"
+                , "Profesor": ""
+            }
+            , "M6": {
+                "Nombre": "Fundamentos de investigación"
+                , "Profesor": ""
+            }
+        }
+        , "2Semestre": {
+            "M1": {
+                "Nombre": "Calculo integral"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Programacion orientada a objetos"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Contabilidad financiera"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Quimica"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Algebra lineal"
+                , "Profesor": ""
+            }
+            , "M6": {
+                "Nombre": "Probabilidad y estadistica"
+                , "Profesor": ""
+            }
+        }
+        , "3Semestre": {
+            "M1": {
+                "Nombre": "Calculo vectorial"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Estructura de datos"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Cultura empresarial"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Investigacion de operaciones"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Sistemas operativos"
+                , "Profesor": ""
+            }
+            , "M6": {
+                "Nombre": "Fisica general"
+                , "Profesor": ""
+            }
+        }
+        , "4Semestre": {
+            "M1": {
+                "Nombre": "Ecuaciones diferenciales"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Metodos numericos"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Topicos avanzados de programacion"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Fundamentos de base de datos"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Taller de sistemas operativos"
+                , "Profesor": ""
+            }
+            , "M6": {
+                "Nombre": "Principios electricos y aplicaciones digitales"
+                , "Profesor": ""
+            }
+        }
+        , "5Semestre": {
+            "M1": {
+                "Nombre": "Desarrollo sustentable"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Fundamentos de telecomunicaciones"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Taller de base de datos"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Simulacion"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Fundamentos de ingenieria de software"
+                , "Profesor": ""
+            }
+            , "M6": {
+                "Nombre": "Arquitectura de computadora"
+                , "Profesor": ""
+            }
+        }
+        , "6Semestre": {
+            "M1": {
+                "Nombre": "Lenguajes y automatas I"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Administracion de base de datos"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Graficacion"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Redes de computadora"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Ingenieria de software"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Lenguajes de interfaz"
+                , "Profesor": ""
+            }
+        }
+        , "7Semestre": {
+            "M1": {
+                "Nombre": "Lenguajes y automatas II"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Conmutacion y enrutamiento de redes de datos"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Taller de investigacion I"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Gestion de proyectos de software"
+                , "Profesor": ""
+            }
+            , "M5": {
+                "Nombre": "Sistemas programables"
+                , "Profesor": ""
+            }
+        }
+        , "8Semestre": {
+            "M1": {
+                "Nombre": "Programacion logica y funcional"
+                , "Profesor": ""
+            }
+            , "M2": {
+                "Nombre": "Administracion de redes"
+                , "Profesor": ""
+            }
+            , "M3": {
+                "Nombre": "Taller de investigacion II"
+                , "Profesor": ""
+            }
+            , "M4": {
+                "Nombre": "Programacion web"
+                , "Profesor": ""
+            }
+        }
+        , "9Semestre": {
+            "M1": {
+                "Nombre": "Inteligencia artificial"
+                , "Profesor": ""
+            }
+        }
+    }
+    , "": {}
+    , "": {}
+    , "": {}
+    , "": {}
+    , "": {}
+    , "": {}
+},
