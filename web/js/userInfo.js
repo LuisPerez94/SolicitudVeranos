@@ -5,16 +5,15 @@ var nombres=[];
 var materia1 = [];
 var materia2 = [];
 var materiasOrdenadas = [];
-var materiasSistemas;
+var materiasCarrera;
+var carrera;
 
 $(document).on("ready", main);
 
-
-
 function main(){
-	matSistemas();
+	getCarrera();
 	//alert("Espere mientras carga");
-	//getUsers();
+	//getDatos();
 	//$("#botonResultados").on("click", imprimirMaterias);
 	//$("#botonMasSolicitadas").on("click", contarMaterias);
 	//$("#botonGrafica").on("click", dibujarGrafico);
@@ -24,13 +23,13 @@ function main(){
 	});
 	$("#lis").on("click", function(e){
 		e.preventDefault();
-		getUsers();
+		getDatos();
 		//contarMaterias();
 		mostrarLista();
 	});
 	$("#gra").on("click", function(e){
 		e.preventDefault();
-		getUsers();
+		getDatos();
 	});
 
 	$("#registros").css({
@@ -47,7 +46,7 @@ function main(){
 
 	ref.child("users").on("value", function(snapshot){
 		if($("#grafica").css("opacity") == 1){
-			setTimeout(getUsers(), 1000);
+			setTimeout(getDatos(), 1000);
 		}
 	})
 
@@ -85,7 +84,8 @@ function imprimirMaterias(){
 			//$("body").append("<br/>" + materia1[i] + "");
 			//$("body").append("<br/>" + materia2[i] + "");
 			materias += "<tr class='success'><th>Nombre del Alumno </th><td>"+ nombres[i]+"</td></tr>"
-						+ "<tr><th>Materia </th><td>" + materia1[i] + "</td></tr><tr><th>Materia </th><td>" + materia2[i]+"</td></tr>";
+						+ "<tr><th>Materia </th><td>" + materia1[i].replace("Semestre", "Semestre - ") + 
+						"</td></tr><tr><th>Materia </th><td>" + materia2[i].replace("Semestre", "Semestre - ") +"</td></tr>";
 		}
 		materias+="</table>"
 	$("#registros").html(materias);
@@ -105,8 +105,8 @@ function imprimirMaterias(){
 
 
 //Iterar todos los hijos de un nodo.
-function getUsers(){	
-	matSistemas();
+function getDatos(){	
+	getMaterias();
 
 		alumnos = [];
 		materia1 = [];
@@ -121,55 +121,71 @@ function getUsers(){
 		snapshot.forEach(function(childSnapshot){
 
 			var key = childSnapshot.key();
-			var nombre  = refUsers.child(key+"/Nombre");
-			var refMat1 = refUsers.child(key+"/Materias/Materia1");
-			var refMat2 = refUsers.child(key+"/Materias/Materia2");
 
-			//Las que van al objeto de jsons.
-			var mate1;
-			var mate2;
-			var mate1Aux;
-			var mate2Aux;
+				var refCar = refUsers.child(key+"/Carrera");
+				var nombre  = refUsers.child(key+"/Nombre");
+				var refMat1 = refUsers.child(key+"/Materias/Materia1");
+				var refMat2 = refUsers.child(key+"/Materias/Materia2");
+				var carreraActual;
 
-			//console.log(nombre);
-			//console.log(key);
-			alumnos.push(key);
+				//Las que van al objeto de jsons.
+				var mate1;
+				var mate2;
+				var mate1Aux;
+				var mate2Aux;
 
-			nombre.on("value",function(nombre){
-				nom=nombre.val();
-				console.log(nom);
-				nombres.push(nom);
-			});
+				//console.log(nombre);
+				//console.log(key);
 
-			refMat1.on("value", function(nombreMateria){
-				console.log(nombreMateria.val());
-				mat1 = nombreMateria.val();
-				mate1Aux = mat1.split("Semestre");
-				mate1 = mate1Aux[1].split("\n");
-				materia1.push(mat1);
-			});
-			
+				refCar.on("value", function(nombreCarrera){
+					console.log("CARRERA *****: " + nombreCarrera.val());
+					carreraActual = nombreCarrera.val();
+				});
 
-			refMat2.on("value", function(nombreMateria){
-				console.log(nombreMateria.val());
-				mat2 = nombreMateria.val();
-				mate2Aux = mat2.split("Semestre");
-				mate2 = mate2Aux[1].split("\n");
-				materia2.push(mat2);
-			});
+				if(carreraActual == carrera){
+					alumnos.push(key);
 
-			console.log("MAT 1 : " + mate1[0]);
-			console.log("MAT 2 : " + mate2[0]);
 
-			var i = 0;
-			for(i = 0; i < materiasSistemas.length; i++){
-				if(mate1[0] == materiasSistemas[i]['id'] || mate2[0] == materiasSistemas[i]['id']){
-					materiasSistemas[i]['alumnoEscogio'] += nom + "<br>";
-					console.log("****** Alumno escogió: " + materiasSistemas[i]['alumnoEscogio']);
+					nombre.on("value",function(nombre){
+						nom=nombre.val();
+						console.log(nom);
+						nombres.push(nom);
+					});
+
+					refMat1.on("value", function(nombreMateria){
+						console.log(nombreMateria.val());
+						mat1 = nombreMateria.val();
+						mate1Aux = mat1.split("Semestre");
+						//mate1 = mate1Aux[1].split("\n");
+						mate1 = mate1Aux[1];
+						console.log("MAAAAAAAAAAATE1: " + mate1);
+						materia1.push(mat1);
+					});
+					
+
+					refMat2.on("value", function(nombreMateria){
+						console.log(nombreMateria.val());
+						mat2 = nombreMateria.val();
+						mate2Aux = mat2.split("Semestre");
+						//mate2 = mate2Aux[1].split("\n");
+						mate2 = mate2Aux[1];
+						console.log("MAAAAAAAAAAATE2: " + mate2);
+						materia2.push(mat2);
+					});
+
+					console.log("MAT 1 : " + mate1[0]);
+					console.log("MAT 2 : " + mate2[0]);
+
+					var i = 0;
+					for(i = 0; i < materiasCarrera.length; i++){
+						if(mate1 == materiasCarrera[i]['id'] || mate2 == materiasCarrera[i]['id']){
+							materiasCarrera[i]['alumnoEscogio'] += nom + "<br>";
+							console.log("****** Alumno escogió: " + materiasCarrera[i]['alumnoEscogio']);
+						}
+					}
+						
+					//alert("Llenos");
 				}
-			}
-				
-			//alert("Llenos");
 
 		});
 		
@@ -193,11 +209,11 @@ function contarMaterias(){
 	 //   return (b.perc - a.perc)
 	//})
 	
-	//console.log(materiasSistemas[10]['id']);
-	//console.log(materiasSistemas.length);
-	//var escogido = materiasSistemas[7]['escogido'] + 1;
-	//materiasSistemas[7]['escogido'] = escogido;
-	//console.log("La materia " + materiasSistemas[7]['id'] + " fue escogida " + (materiasSistemas[7]['escogido'] + 10) + " veces.");
+	//console.log(materiasCarrera[10]['id']);
+	//console.log(materiasCarrera.length);
+	//var escogido = materiasCarrera[7]['escogido'] + 1;
+	//materiasCarrera[7]['escogido'] = escogido;
+	//console.log("La materia " + materiasCarrera[7]['id'] + " fue escogida " + (materiasCarrera[7]['escogido'] + 10) + " veces.");
 
 	//Deja el array como [semestre, materiaMaestro];
 	//var materiaActualAux = materia1[1].split("Semestre");
@@ -219,29 +235,34 @@ function contarMaterias(){
 
 	for(var i = 0; i < alumnos.length; i++){
 		if(materia1[i] != "Vacio"){
+			console.log("MATERIA1[i] : " + materia1[i]);
 			materiaActualAux1 = materia1[i].split("Semestre");
-			materiaActual1 = materiaActualAux1[1].split("\n");
+						console.log("MATERIA1AUX[i] : " + materiaActualAux1);
+			//materiaActual1 = materiaActualAux1[1].split("\n");
+			materiaActual1 = materiaActualAux1[1];
+			console.log("MATERIAACTUAL1 : " + materiaActual1);
 		}else{
 						materiaActual1 = "Vacio";
 		}
 
 		if(materia2[i] != "Vacio"){
 			materiaActualAux2 = materia2[i].split("Semestre");
-			materiaActual2 = materiaActualAux2[1].split("\n");
+			//materiaActual2 = materiaActualAux2[1].split("\n");
+			materiaActual2 = materiaActualAux2[1];
 		}else{
 						materiaActual2 = "Vacio";
 		}
-			console.log(materiaActual2[0]);
+			//console.log(materiaActual2);
 
 
 		//For para el array de la primera materia
-		for(var j = 0; j < materiasSistemas.length; j++){
-			//console.log(materiasSistemas[j]['id']);
+		for(var j = 0; j < materiasCarrera.length; j++){
+			//console.log(materiasCarrera[j]['id']);
 			//console.log(materiaActual1[0]);
 			//console.log(materiaActual2[0]);
 
-			if(materiaActual1[0] == materiasSistemas[j]['id'] || materiaActual2[0] == materiasSistemas[j]['id']){
-				materiasSistemas[j]['escogido'] ++;
+			if(materiaActual1 == materiasCarrera[j]['id'] || materiaActual2 == materiasCarrera[j]['id']){
+				materiasCarrera[j]['escogido'] ++;
 				encontradas++;
 			}
 
@@ -253,13 +274,13 @@ function contarMaterias(){
 		}
 	}
 
-	//$("body").append("<br/> <br/> Tópicos avanzados de programación fue elegida: " + materiasSistemas[20]['escogido'] + " veces");
+	//$("body").append("<br/> <br/> Tópicos avanzados de programación fue elegida: " + materiasCarrera[20]['escogido'] + " veces");
 
-	materiasSistemas.sort(function (a, b) {
+	materiasCarrera.sort(function (a, b) {
 	    return (b.escogido - a.escogido)
 	})
 
-	materiasOrdenadas = materiasSistemas.sort();
+	materiasOrdenadas = materiasCarrera.sort();
 
 	setTimeout(actualizarGrafica(), 6000);
 }
@@ -268,7 +289,7 @@ function mostrarLista(){
 	var lista = "";
 
 	//$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
-	lista += "<br/><br/> Estas fueron las materias más solicitadas:<br /> ";
+	lista += "<br/><br/> Estas fueron las materias más solicitadas para " + carrera + ":<br /> ";
 
 	lista+="<table class='table-striped' style='width:100%; text-align:center;'>";
 	lista+="<tr><th>Materia</th><th>Semestre</th><th>Veces solicitada</th>" +
@@ -288,7 +309,7 @@ function mostrarLista(){
 
 	lista+="</table>";
 
-	//console.log(materiasSistemas.sort());
+	//console.log(materiasCarrera.sort());
 	$("#lista").html(lista);
 
 	$("#registros").css({
@@ -320,7 +341,7 @@ function actualizarGrafica(){
      	['Texto4', 10.25]*/
      	]);
      var options = {
-     	title: 'Las materias más escogidas para sistemas'
+     	title: 'Las materias más escogidas para ' + carrera
      }
      // Dibujar el gráfico
      new google.visualization.ColumnChart( 
@@ -345,8 +366,63 @@ function dibujarGrafico() {
 		"opacity":"1"
 	}); 
 
+		console.log(materiasCarrera);
+
+
  }
 
+function getCarrera(){
+	cadVariables = location.search.substring(1,location.search.length);
+	arrVariables = cadVariables.split("&");
+
+	for (i=0; i<arrVariables.length; i++) {
+  		arrVariableActual = arrVariables[i].split("=");
+  	if (isNaN(parseFloat(arrVariableActual[1])))
+    	eval(arrVariableActual[0]+"='"+unescape(arrVariableActual[1])+"';");
+  	else
+    	eval(arrVariableActual[0]+"="+arrVariableActual[1]+";");
+
+	}
+
+	console.log("****CARRERA: " + arrVariableActual[1]);
+
+	switch(parseInt(arrVariableActual[1])){
+		case 1:
+			carrera = "Administracion";
+			break;
+		case 2:
+			carrera = "Bioquimica";
+			break;
+		case 3:
+			carrera = "Electrica";
+			break;
+		case 4:
+			carrera = "Electronica";
+			break;
+		case 5:
+			carrera = "Industrial";
+			break;
+		case 6:
+			carrera = "Mecatronica";
+			break;
+		case 7:
+			carrera = "Mecanica";
+			break;
+		case 8:
+			carrera = "Quimica";
+			break;
+		case 9:
+			carrera = "Sistemas";
+			break;
+	}
+
+	console.log("****CARRERA: " + carrera);
+
+	$("#cabecera").html("Estás viendo las materias de " + carrera);
+
+	getMaterias();
+
+}
 
 
 

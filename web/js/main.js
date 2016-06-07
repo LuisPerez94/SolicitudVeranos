@@ -10,6 +10,10 @@ var Usuario = {
                 "margin":"10px auto"
             });
 
+            console.log("HOLA: " + $("#carrera option:selected").val());
+
+            var carrera = $("#carrera option:selected").val();
+
             var ref = new Firebase($urlApp);
             ref.authWithPassword({
                 email: usuario
@@ -34,8 +38,17 @@ var Usuario = {
                         "display":"none"
                     });
                 } else {
-                    window.location.href=url;
-                    window.location.reload;
+                    if(carrera != 0){
+                        
+                        window.location.href=url+"?carrera="+carrera;
+                        window.location.reload;
+                    }else{
+                        alert("Escoja una carrera");
+                        $("#loading").css({
+                            "display":"none"
+                        });
+                    }
+
                 }
             })
         }

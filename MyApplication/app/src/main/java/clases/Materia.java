@@ -13,6 +13,11 @@ public class Materia {
         this.materia = materia;
     }
 
+    public Materia(String Materia){
+        this.materia=Materia;
+        this.nombre=null;
+    }
+
     public String getNombre() {
         return nombre;
     }

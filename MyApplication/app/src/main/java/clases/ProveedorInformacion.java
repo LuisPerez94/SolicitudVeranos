@@ -45,20 +45,20 @@ public class ProveedorInformacion {
                 for (long i = 0; i < numHijos; i++) {
 
                     long numMaterias = snapshot.child((i + 1) + "Semestre").getChildrenCount();
-                   // System.out.println("Numero de Materias" + numMaterias);
+                    System.out.println("Numero de Materias" + numMaterias);
                     List<Materia> materias = new ArrayList<>();
 
                     for (long j = 0; j < numMaterias; j++) {
 
                         String materia = (String) snapshot.child((i + 1) + "Semestre").child("M" + (j + 1)).child("Nombre").getValue();
-                        String profesor = (String) snapshot.child((i + 1) + "Semestre").child("M" + (j + 1)).child("Maestro").getValue();
+                       // String profesor = (String) snapshot.child((i + 1) + "Semestre").child("M" + (j + 1)).child("Profesor").getValue();
 
 
-                        if ((materia != null) && (profesor != null)) {
-                            //System.out.println("entra " + i + " " + j);
-                            Materia mat = new Materia(profesor, materia);
+                        if ((materia != null) /*&& (profesor != null)*/) {
+                            System.out.println("entra " + i + " " + j);
+                            Materia mat = new Materia(materia);
                             materias.add(mat);
-                            //  System.out.println(mat.getNombre() + mat.getMateria());
+                              System.out.println(mat.getNombre() + mat.getMateria());
                         }
                         //System.out.println("No entra");
                     }

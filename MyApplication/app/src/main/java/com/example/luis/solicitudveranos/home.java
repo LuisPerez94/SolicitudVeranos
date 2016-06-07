@@ -44,6 +44,8 @@ public class home extends AppCompatActivity {
 
     TextView txtNombre;
     TextView txtCarrera;
+    TextView mat1;
+    TextView mat2;
     static String datos[];
     static Firebase sesion;
     static Firebase info;
@@ -73,6 +75,8 @@ public class home extends AppCompatActivity {
         lista=(ExpandableListView) findViewById(R.id.expListMaterias);
         txtNombre=(TextView) findViewById(R.id.textViewUsuarioHome);
         txtCarrera=(TextView) findViewById(R.id.textViewCarreraHome);
+        mat1=(TextView) findViewById(R.id.textViewMat1);
+        mat2=(TextView) findViewById(R.id.textViewMat2);
 
         sesion.authWithPassword(datos[0], datos[1], new Firebase.AuthResultHandler() {
             @Override
@@ -142,6 +146,8 @@ public class home extends AppCompatActivity {
                 materiasAlumno = (HashMap) dataSnapshot.child("Materias").getValue();
                 txtNombre.setText("Bienvenido  " + dataSnapshot.child("Nombre").getValue() + "    #control:  " + dataSnapshot.child("Matricula").getValue());
                 txtCarrera.setText("Estas viendo la reticula de " + dataSnapshot.child("Carrera").getValue());
+                mat1.setText("Materia 1 :"+(String) materiasAlumno.get("Materia1"));
+                mat2.setText("Materia 2 :"+(String) materiasAlumno.get("Materia2"));
                 leerDatosMaterias();
             }
 
