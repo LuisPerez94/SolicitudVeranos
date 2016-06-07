@@ -1,6 +1,5 @@
 var Usuario = {
         inicioSesion: function (usuario, pass, url) {
-
             $("#loading").css({
                 "background-image":"url('img/loading.gif')",
                 "background-size":"50px 50px",
@@ -39,7 +38,8 @@ var Usuario = {
                     });
                 } else {
                     if(carrera != 0){
-                        
+                        $cookie('sesion','1');
+                        alert($cookie('sesion'));
                         window.location.href=url+"?carrera="+carrera;
                         window.location.reload;
                     }else{
@@ -48,7 +48,6 @@ var Usuario = {
                             "display":"none"
                         });
                     }
-
                 }
             })
         }
