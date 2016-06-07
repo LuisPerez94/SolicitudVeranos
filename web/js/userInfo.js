@@ -11,12 +11,12 @@ var carrera;
 $(document).on("ready", main);
 
 function main() {
-    if($cookie('sesion')===undefined){
+    if ($cookie('sesion') === undefined) {
         alert('Inicie Sesion');
-        window.location.href="http://localhost/appVeranos/web/index.html";
+        window.location.href = "http://localhost/appVeranos/web/index.html";
         window.location.reload;
     }
-    $("#cerrar").click(function(){
+    $("#cerrar").click(function () {
         $removeCookie('sesion');
     });
     getCarrera();
@@ -28,6 +28,7 @@ function main() {
     $("#reg").on("click", function (e) {
         e.preventDefault();
         imprimirMaterias();
+        $("#container-descarga").html('');
     });
     $("#lis").on("click", function (e) {
         e.preventDefault();
@@ -38,6 +39,7 @@ function main() {
     $("#gra").on("click", function (e) {
         e.preventDefault();
         getDatos();
+        $("#container-descarga").html('');
     });
 
     $("#registros").css({
@@ -187,7 +189,6 @@ function getDatos() {
                 for (i = 0; i < materiasCarrera.length; i++) {
                     if (mate1 == materiasCarrera[i]['id'] || mate2 == materiasCarrera[i]['id']) {
                         materiasCarrera[i]['alumnoEscogio'] += nom + "<br>";
-                        console.log("****** Alumno escogió: " + materiasCarrera[i]['alumnoEscogio']);
                     }
                 }
 
@@ -289,7 +290,8 @@ function contarMaterias() {
 
 function mostrarLista() {
     var lista = "";
-
+var id = [];
+    var alumnos=[];
     //$("body").append("<br/><br/> Estas fueron las materias más solicitadas: ");
     lista += "<br/><br/> Estas fueron las materias más solicitadas para " + carrera + ":<br /> ";
 
@@ -300,6 +302,8 @@ function mostrarLista() {
     for (var k = 0; materiasOrdenadas[k]['escogido'] > 0; k++) {
         //$("body").append("<br/>" + materiasOrdenadas[k]['id'] + " | Semestre: " + materiasOrdenadas[k]['semestre']
         //	+ " fue elegida: " + materiasOrdenadas[k]['escogido'] + " veces.");
+        id[k]=materiasOrdenadas[k]['id'];
+        alumnos[k]=materiasOrdenadas[k]['alumnoEscogio'];
         lista += "<tr><td>" + materiasOrdenadas[k]['id'] + " </td><td>" + materiasOrdenadas[k]['semestre'] + "</td><td>" + materiasOrdenadas[k]['escogido'] + "</td>" +
             "<td>" + materiasOrdenadas[k]['alumnoEscogio'] + "</td></tr>"
 
@@ -312,7 +316,9 @@ function mostrarLista() {
 
     //console.log(materiasCarrera.sort());
     $("#lista").html(lista);
-
+    $("#container-descarga").html('<button type="submit" class="btn btn-default" id="descarga" form="form">Descargar Documento</button>');
+    $("input[name=id]").val(id);
+    $("input[name=alumnos]").val(alumnos);
     $("#registros").css({
         "opacity": "0"
     });
@@ -331,15 +337,21 @@ function actualizarGrafica() {
     // Tabla de datos: valores y etiquetas de la gráfica
     var data = google.visualization.arrayToDataTable([
      	['Texto', 'Veces solicitada']
-     	, [materiasOrdenadas[0]['id'], materiasOrdenadas[0]['escogido']]
-     	, [materiasOrdenadas[1]['id'], materiasOrdenadas[1]['escogido']]
-     	, [materiasOrdenadas[2]['id'], materiasOrdenadas[2]['escogido']]
-     	, [materiasOrdenadas[3]['id'], materiasOrdenadas[3]['escogido']]
-     	, [materiasOrdenadas[4]['id'], materiasOrdenadas[4]['escogido']]
-     	, /*['Texto1', 20.21],
-     	['Texto2', 4.28],
-     	['Texto3', 17.26],
-     	['Texto4', 10.25]*/
+
+        , [materiasOrdenadas[0]['id'], materiasOrdenadas[0]['escogido']]
+
+        , [materiasOrdenadas[1]['id'], materiasOrdenadas[1]['escogido']]
+
+        , [materiasOrdenadas[2]['id'], materiasOrdenadas[2]['escogido']]
+
+        , [materiasOrdenadas[3]['id'], materiasOrdenadas[3]['escogido']]
+
+        , [materiasOrdenadas[4]['id'], materiasOrdenadas[4]['escogido']]
+
+        , /*['Texto1', 20.21],
+            	['Texto2', 4.28],
+            	['Texto3', 17.26],
+            	['Texto4', 10.25]*/
      	]);
     var options = {
             title: 'Las materias más escogidas para ' + carrera
@@ -366,10 +378,6 @@ function dibujarGrafico() {
     $("#grafica").css({
         "opacity": "1"
     });
-
-    console.log(materiasCarrera);
-
-
 }
 
 function getCarrera() {
