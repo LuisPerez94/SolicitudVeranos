@@ -316,7 +316,7 @@ var id = [];
 
     //console.log(materiasCarrera.sort());
     $("#lista").html(lista);
-    $("#container-descarga").html('<button type="submit" class="btn btn-default" id="descarga" form="form">Descargar Documento</button>');
+    $("#container-descarga").html('<button type="submit" class="btn" id="descarga" form="form">Descargar Documento</button>');
     $("input[name=id]").val(id);
     $("input[name=alumnos]").val(alumnos);
     $("#registros").css({

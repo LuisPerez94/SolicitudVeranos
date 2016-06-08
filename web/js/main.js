@@ -39,7 +39,6 @@ var Usuario = {
                 } else {
                     if(carrera != 0){
                         $cookie('sesion','1');
-                        alert($cookie('sesion'));
                         window.location.href=url+"?carrera="+carrera;
                         window.location.reload;
                     }else{
