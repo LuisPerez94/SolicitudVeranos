@@ -27,6 +27,7 @@
         <item>Administracion</item>
     </string-array>
     <string name="title_activity_home">Seleccion de Veranos Itver</string>
+    <string name="Salir">Salir</string>
 
 
 </resources>

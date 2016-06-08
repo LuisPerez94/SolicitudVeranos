@@ -2,9 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.luis.solicitudveranos.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_salir"
+        android:orderInCategory="200"
+        android:title="@string/Salir"
+        android:icon="@drawable/quit"
+        app:showAsAction="always"
+
+        />
 </menu>
