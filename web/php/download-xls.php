@@ -33,7 +33,6 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(20);
 $objPHPExcel->getActiveSheet()->getStyle()->getFont()->setSize(20);
 $objPHPExcel->getActiveSheet()->mergeCells('A1:G1');
-// Miscellaneous glyphs, UTF-8
 $objPHPExcel->getActiveSheet()->getCell('A4')->setValue("Materias");
 $objPHPExcel->getActiveSheet()->getCell('C4')->setValue("Solicitante");
 
@@ -52,27 +51,12 @@ foreach ($materias as $materia){
         }
 
 }
-
-
-
-$objPHPExcel->getActiveSheet()->getCell('A8')->setValue("hello\nworld");
-
-// Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Veranos');
-
-
-// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
-
-
-// Redirect output to a client’s web browser (Excel5)
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="01simple.xls"');
 header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
-
-// If you're serving to IE over SSL, then the following may be needed
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
 header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
